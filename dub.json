@@ -1,5 +1,5 @@
 {
-    "name": "dcv",
+    "name": "dcv-i2d",
     "description": "Computer vision library for D programming language.",
     "copyright": "Copyright © 2016, Relja Ljubobratovic",
     "authors": [
@@ -36,7 +36,7 @@
             ],
             "dependencies":
             {
-                "mir-algorithm": "3.11.4",
+                "mir-algorithm": "3.15.3",
                 "mir-random": "2.2.19",
                 "bcaa": "0.0.8"
             },
