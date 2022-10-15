@@ -241,7 +241,7 @@ private auto _assemble_contours(Segments)(auto ref Segments segments){
                     // tail was created second. Append tail to head.
                     head.insertBack(tail[]);
                     // Remove tail from the detected contours
-                    contours[tail_num].clear;
+//                    contours[tail_num].clear;
                     contours.remove(tail_num);
                     // Update starts and ends
                     starts[head[].front] = tuple(head, head_num);
@@ -254,7 +254,7 @@ private auto _assemble_contours(Segments)(auto ref Segments segments){
                     // Remove head from the detected contours
                     starts.remove(head[].front); // head[0] can be == to_point!
 
-                    contours[head_num].clear;
+//                    contours[head_num].clear;
                     contours.remove(head_num);
                     // Update starts and ends
                     starts[tail[].front] = tuple(tail, tail_num);
@@ -311,10 +311,10 @@ private auto _assemble_contours(Segments)(auto ref Segments segments){
         ctr._iterator[0..len*2][] = (cast(double*)_c.ptr)[0..len*2];
         
         cts[i++] = ctr;
-        tmp.clear;
+//        tmp.clear;
     }
 
-    debug assert( nm == nf, "Memory leaks here!");
+//    debug assert( nm == nf, "Memory leaks here!");
 
     return cts.move;
 }
