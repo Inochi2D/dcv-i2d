@@ -507,8 +507,24 @@ struct dlist(T)
         return _root is null || _root is _first;
     }
 
+    import core.stdc.stdio;
+    void dump() {
+        printf("dump: %lx", _root);
+        auto next = _root? _root._next: null;
+        int dispcount=5;
+        while (next && dispcount >= 0) {
+            if (dispcount >= 0 || next._next == null) {
+                printf("-->%lx", next);
+                dispcount -=1;
+            }
+            next = next._next;
+        }
+        printf("\n");
+    }
+
     void clear()
     {
+        dump();
         auto r = this[];
         if (r.empty){
             if(_root){
@@ -521,8 +537,9 @@ struct dlist(T)
         do
         {
             last = r._first;
-            mfree(last);
+            printf("free: %lx\n", last);
             r.popFront();
+            mfree(last);
         } while ( !r.empty );
 
         mfree(_root);

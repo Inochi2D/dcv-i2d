@@ -177,6 +177,8 @@ private auto _get_contour_segments(InputType)
 }
 
 private auto _assemble_contours(Segments)(auto ref Segments segments){ 
+    import core.stdc.stdio;
+
     import std.algorithm.comparison : equal;
     import mir.ndslice: chunks;
 
@@ -226,6 +228,7 @@ private auto _assemble_contours(Segments)(auto ref Segments segments){
             head_num = (*tuphead)[1];
             ends.remove(from_point);
         }
+        contours[tail_num].dump();
 
         if ((!tail.empty) && (!head.empty)){
             // We need to connect these two contours.
@@ -241,7 +244,8 @@ private auto _assemble_contours(Segments)(auto ref Segments segments){
                     // tail was created second. Append tail to head.
                     head.insertBack(tail[]);
                     // Remove tail from the detected contours
-//                    contours[tail_num].clear;
+                    printf("remove contours [tail_num=%d]\n", tail_num);
+                    contours[tail_num].clear;
                     contours.remove(tail_num);
                     // Update starts and ends
                     starts[head[].front] = tuple(head, head_num);
@@ -254,7 +258,8 @@ private auto _assemble_contours(Segments)(auto ref Segments segments){
                     // Remove head from the detected contours
                     starts.remove(head[].front); // head[0] can be == to_point!
 
-//                    contours[head_num].clear;
+                    printf("remove contours [head_num=%d]\n", head_num);
+                    contours[head_num].clear;
                     contours.remove(head_num);
                     // Update starts and ends
                     starts[tail[].front] = tuple(tail, tail_num);
@@ -311,10 +316,11 @@ private auto _assemble_contours(Segments)(auto ref Segments segments){
         ctr._iterator[0..len*2][] = (cast(double*)_c.ptr)[0..len*2];
         
         cts[i++] = ctr;
-//        tmp.clear;
+        printf("remove contours[tmp]\n");
+        tmp.clear;
     }
 
-//    debug assert( nm == nf, "Memory leaks here!");
+    debug assert( nm == nf, "Memory leaks here!");
 
     return cts.move;
 }
